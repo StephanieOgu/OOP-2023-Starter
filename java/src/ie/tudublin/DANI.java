@@ -1,7 +1,9 @@
 package ie.tudublin;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
+import ie.tudublin.d22126511.Follow;
 import ie.tudublin.d22126511.Word;
 import processing.core.PApplet;
 
@@ -24,7 +26,6 @@ public class DANI extends PApplet {
 		colorMode(HSB);
 		loadFile();
 
-		// file()
 		for (Word string : loadedWords) {
 			System.out.println(string);
 		}
@@ -53,23 +54,25 @@ public class DANI extends PApplet {
 			String words[] = split(line, ' '); // Split a string into an array of words
 			for(int i = 0; i<words.length; ++i){
 				String thisWord = words[i].replaceAll("[^\\w\\s]",""); // Remove punction characters
-				// String nextWord = words[i+1].replaceAll("[^\\w\\s]","");
 				currentWord = this.findWord(thisWord);
-				if(currentWord ==  null){
+				if(currentWord == null){
 					currentWord = new Word(thisWord);
 					loadedWords.add(currentWord);
 				}
-				// this.addFolow(nextWord, currentWord);
+				if(i+1 < words.length){
+					String nextWord = words[i+1].replaceAll("[^\\w\\s]","");
+					this.addFolow(nextWord, currentWord);
+				}
 			}
 		}
 		return lines;
 	}
 
-	//check if word is already met
+	//check if word is already met in a loadedWords
 	public Word findWord(String str){
 		if(!this.isWordsEmpty()){
 			for (Word word : loadedWords) {
-				if(word.getWord() == str){
+				if(Objects.equals(word.getWord(), str)){
 					return word;
 				}
 			}
@@ -78,7 +81,23 @@ public class DANI extends PApplet {
 	}
 
 	public void addFolow(String follow, Word word){
-		
+		int index = findFollowIndex(word, follow);
+		if(index == -1){
+			word.addFollow(follow);
+		} else {
+			word.changeFellowByIndex(X);
+		}
+	}
+
+	//check if word is already met in a folllows
+	public int findFollowIndex(Word word, String mightFollow){
+
+		for (int i = 0; i<word.getFollows().size(); ++i){
+			if(word.getFollows().get(i).getWord() == mightFollow){
+				return i; 
+			}
+		}
+		return -1;
 	}
 
 	//checks if words arraylist is empty

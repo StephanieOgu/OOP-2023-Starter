@@ -25,9 +25,13 @@ public class Follow {
         return this.count;
     }
 
+    public void increaseCount(){
+        this.count ++;
+    }
+
     @Override
     public String toString() {
-        return String.format("Word: %s (%d) \n", word, count);
+        return String.format("%s (%d) \t", word, count);
     }
 
 }

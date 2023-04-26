@@ -18,9 +18,21 @@ public class Word {
         return this.word;
     }
 
+    public ArrayList<Follow> getFollows(){
+        return follows;
+    }
+
+    public void addFollow(String word){
+        this.follows.add(new Follow(word, 1));
+    }
+
+    public void changeFellowByIndex(int findFollowIndex){
+        this.follows.get(findFollowIndex).increaseCount();
+    }
+
     @Override
     public String toString() {
-        String res = this.word + ":\n";
+        String res = this.word + ":\t";
         for (Follow follow : follows) {
             res += follow.toString();
         }
