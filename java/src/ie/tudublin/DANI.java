@@ -1,7 +1,9 @@
 package ie.tudublin;
 
+import java.net.SocketImpl;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 import ie.tudublin.d22126511.Follow;
 import ie.tudublin.d22126511.Word;
@@ -19,13 +21,41 @@ public class DANI extends PApplet {
     String[] sonnet;
 
     public String[] writeSonnet() {
+		System.out.println("\n\n\n----HERE IS OUR SONNET\n\n\n");
+		for(int i = 0; i< 14; i++){
+			writeSonneteString();
+		}
+
         return null;
     }
+
+	public String writeSonneteString(){
+		Word currentWord = loadedWords.get(getRandomVal(loadedWords.size()-1, 0));
+		String sonnetRow = currentWord.getWord() + " ";
+
+		int i = 0;
+		while(i<8){
+			if(currentWord.getFollowsSize()== 0){
+				break;
+			}
+			Follow randomFollow = currentWord.getFollows().get(getRandomVal(0, currentWord.getFollowsSize()-1));
+			currentWord = this.findWord(randomFollow.getWord());
+			sonnetRow += currentWord.getWord() + " ";
+			i++;
+		}
+		System.out.println(sonnetRow);
+		return sonnetRow;
+	}
+
+	private int getRandomVal(int min, int max){
+		return new Random().nextInt(max - min + 1 + min);
+	}
 
 	public void setup() {
 		colorMode(HSB);
 		loadFile();
 		printModel();
+		writeSonnet();
 	}
 
 	public void printModel(){

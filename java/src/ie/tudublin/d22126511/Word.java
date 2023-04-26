@@ -19,7 +19,11 @@ public class Word {
     }
 
     public ArrayList<Follow> getFollows(){
-        return follows;
+        return this.follows;
+    }
+
+    public int getFollowsSize(){
+        return this.follows.size();
     }
 
     public void addFollow(String word){
