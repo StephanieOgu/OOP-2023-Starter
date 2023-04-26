@@ -11,7 +11,7 @@ import processing.core.PApplet;
 public class DANI extends PApplet {
 
 	private ArrayList <Word> loadedWords = new ArrayList<>();
-	private int sonneteLen = 14;
+	private int sonneteLen = 14; //the length of one sonnet
     private String[] sonnet = new String[sonneteLen];
 
 	@Override
@@ -67,8 +67,9 @@ public class DANI extends PApplet {
 				}
 
 				//if next word exists, add to current word new follow
-				if(i+1 < words.length){
-					String nextWord = words[i+1].replaceAll("[^\\w\\s]","");
+				int nextWordIndex = i+1;
+				if(nextWordIndex < words.length){
+					String nextWord = words[nextWordIndex].replaceAll("[^\\w\\s]","");
 					this.addFolow(nextWord, currentWord);
 				}
 			}
@@ -78,10 +79,10 @@ public class DANI extends PApplet {
 
 
 	//check if word is already met in a loadedWords
-	private Word findWord(String str){
-		if(!this.isWordsEmpty()){
+	private Word findWord(String vordValue){
+		if(!this.loadedWords.isEmpty()){
 			for (Word word : loadedWords) {
-				if(Objects.equals(word.getWord(), str)){
+				if(Objects.equals(word.getWordValue(), vordValue)){
 					return word;
 				}
 			}
@@ -90,29 +91,23 @@ public class DANI extends PApplet {
 	}
 
 	//add follow to particular word
-	private void addFolow(String follow, Word word){
-		int index = findFollowIndex(word, follow);
+	private void addFolow(String followWordValue, Word word){
+		int index = findFollowIndex(word, followWordValue);
 		if(index == -1){
-			word.addFollow(follow);
+			word.addFollow(followWordValue);
 		} else {
-			word.increaseFollowCountByIndex(X);
+			word.increaseFollowCountByIndex(index);
 		}
 	}
 	
 	//check if word is already met in a follows
 	private int findFollowIndex(Word word, String mightFollow){
-
-		for (int i = 0; i<word.getFollows().size(); ++i){
+		for (int i = 0; i<word.getFollowsSize(); ++i){
 			if(word.getFollows().get(i).getWord() == mightFollow){
 				return i; 
 			}
 		}
 		return -1;
-	}
-
-	//checks if words arraylist is empty
-	private boolean isWordsEmpty(){
-		return loadedWords.size()== 0;
 	}
 
 	//print a model
@@ -140,19 +135,19 @@ public class DANI extends PApplet {
 	//generating sonette string which contains no more than 8 words
 	private String writeSonneteString() {
 		Word currentWord = loadedWords.get(getRandomVal(0, loadedWords.size()-1));
-		String sonnetRow = currentWord.getWord() + " ";
+		String sonnetRow = currentWord.getWordValue() + " ";
 
 		int i = 0;
-		while(i<8){
+		while(i<7) {
 			//if no follows - stop
-			if(currentWord.getFollowsSize()== 0){
+			if(currentWord.getFollowsSize() == 0){
 				break;
 			}
 
 			//get random follow word and find it in a word array
 			Follow randomFollow = currentWord.getFollows().get(getRandomVal(0, currentWord.getFollowsSize()-1));
 			currentWord = this.findWord(randomFollow.getWord());
-			sonnetRow += currentWord.getWord() + " ";
+			sonnetRow += currentWord.getWordValue() + " ";
 			i++;
 		}
 		return sonnetRow;
@@ -175,11 +170,13 @@ public class DANI extends PApplet {
 
 	//print sonette at the screen
 	private void printSonneteAtTheScreen(){
-		text("Sonnete:", width/2-10, 20);
+		text("Sonnete:", width/2-10, 100);
+
+		int sonneteBorder = 200; //border of the displaying sonnete
 
 		for(int i = 1; i<= this.sonneteLen; i++){
 			//map where to display the string
-			float y = map(i-1, 0, 14, 100, width - 100);
+			float y = map(i-1, 0, this.sonneteLen, sonneteBorder, width - sonneteBorder);
 			text(sonnet[i-1], 500, y);
 		}
 	}

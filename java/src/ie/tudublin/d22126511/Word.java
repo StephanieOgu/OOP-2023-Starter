@@ -1,24 +1,25 @@
 package ie.tudublin.d22126511;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Word {
-    private String word;
+    private String wordValue;
     private ArrayList<Follow> follows = new ArrayList<>();
 
     public Word(String word){
-        this.word = word;
+        this.wordValue = word;
     }
 
-    public void setWord(String word){
-        this.word = word;
+    public void setWordValue(String word){
+        this.wordValue = word;
     }
 
-    public String getWord(){
-        return this.word;
+    public String getWordValue(){
+        return this.wordValue;
     }
 
-    public ArrayList<Follow> getFollows(){
+    public List<Follow> getFollows(){
         return this.follows;
     }
 
@@ -39,7 +40,7 @@ public class Word {
 
     @Override
     public String toString() {
-        String res = this.word + ":\t";
+        String res = this.wordValue + ":\t";
         for (Follow follow : follows) {
             res += follow.toString();
         }
