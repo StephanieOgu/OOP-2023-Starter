@@ -39,7 +39,7 @@ public class DANI extends PApplet {
         textAlign(CENTER, CENTER);
 	}
 
-	public String[] loadFile(){
+	public String[] loadFile() {
 		String[] lines = loadStrings("shakespere.txt"); // Load a text file into a String array
 		for (String line : lines) {
 			line.toLowerCase(); // Convert a string to lower case 

@@ -27,7 +27,7 @@ public class Follow {
 
     @Override
     public String toString() {
-        return String.format("---WORD INFO--- \nWord: %s \nCount: %d", word, count);
+        return String.format("Word: %s (%d) \n", word, count);
     }
 
 }
