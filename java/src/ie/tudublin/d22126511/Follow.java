@@ -9,22 +9,23 @@ public class Follow {
         this.count = count;
     }
 
+    public String getWord(){
+        return this.word;
+     }
+
     public void setWord(String word){
         this.word = word;
-    }
-
-    public String getWord(){
-       return this.word;
-    }
-
-    public void setCount(int count){
-        this.count = count;
     }
 
     public int getCount(){
         return this.count;
     }
 
+    public void setCount(int count){
+        this.count = count;
+    }
+
+    //increase count value by one
     public void increaseCount(){
         this.count ++;
     }
@@ -33,5 +34,4 @@ public class Follow {
     public String toString() {
         return String.format("%s (%d) \t", word, count);
     }
-
 }

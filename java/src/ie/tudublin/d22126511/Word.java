@@ -22,15 +22,18 @@ public class Word {
         return this.follows;
     }
 
+    //lenght of the follows array
     public int getFollowsSize(){
         return this.follows.size();
     }
 
+    //add new follow (initial one)
     public void addFollow(String word){
         this.follows.add(new Follow(word, 1));
     }
 
-    public void changeFellowByIndex(int findFollowIndex){
+    //increasing particular follow count value
+    public void increaseFollowCountByIndex(int findFollowIndex){
         this.follows.get(findFollowIndex).increaseCount();
     }
 
