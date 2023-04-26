@@ -23,6 +23,11 @@ public class Follow {
 
     public int getCount(){
         return this.count;
-     }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("---WORD INFO--- \nWord: %s \nCount: %d", word, count);
+    }
 
 }
