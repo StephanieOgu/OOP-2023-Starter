@@ -25,7 +25,10 @@ public class DANI extends PApplet {
 	public void setup() {
 		colorMode(HSB);
 		loadFile();
+		printModel();
+	}
 
+	public void printModel(){
 		for (Word string : loadedWords) {
 			System.out.println(string);
 		}
