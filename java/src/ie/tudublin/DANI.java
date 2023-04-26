@@ -25,11 +25,10 @@ public class DANI extends PApplet {
 		for(int i = 0; i< this.sonneteLen; i++){
 			sonnet[i] = writeSonneteString();
 		}
-
         return sonnet;
     }
 
-	public String writeSonneteString(){
+	public String writeSonneteString() {
 		Word currentWord = loadedWords.get(getRandomVal(loadedWords.size()-1, 0));
 		String sonnetRow = currentWord.getWord() + " ";
 
@@ -84,6 +83,16 @@ public class DANI extends PApplet {
 		noStroke();
 		textSize(20);
         textAlign(CENTER, CENTER);
+		printSonneteAtTheScreen();
+	}
+
+	public void printSonneteAtTheScreen(){
+		text("Sonnete:", width/2-10, 20);
+
+		for(int i = 1; i<= this.sonneteLen; i++){
+			float y = map(i-1, 0, 14, 100, width - 100);
+			text(sonnet[i-1], 500, y);
+		}
 	}
 
 	//load shakespere.txt file
