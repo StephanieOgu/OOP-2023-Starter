@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Word {
     private String word;
-    private ArrayList<Follow> follows;
+    private ArrayList<Follow> follows = new ArrayList<>();
 
     public Word(String word){
         this.word = word;
@@ -18,21 +18,12 @@ public class Word {
         return this.word;
     }
 
-    public boolean isNoFollows(){
-        return this.follows.size() == 0;
-    }
-
     @Override
     public String toString() {
         String res = this.word + ":\n";
-        if(!isNoFollows()){
-            for (Follow follow : follows) {
-                res += follow.toString();
-            }
+        for (Follow follow : follows) {
+            res += follow.toString();
         }
-
         return res;
     }
-
-
 }
