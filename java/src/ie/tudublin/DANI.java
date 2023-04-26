@@ -12,21 +12,21 @@ import processing.core.PApplet;
 public class DANI extends PApplet {
 
 	ArrayList <Word> loadedWords = new ArrayList<>();
+	int sonneteLen = 14;
+    String[] sonnet = new String[sonneteLen];
 
 	public void settings() {
 		size(1000, 1000);
 		//fullScreen(SPAN);
 	}
 
-    String[] sonnet;
-
     public String[] writeSonnet() {
-		System.out.println("\n\n\n----HERE IS OUR SONNET\n\n\n");
-		for(int i = 0; i< 14; i++){
-			writeSonneteString();
+		String[] sonnet = new String[sonneteLen];;
+		for(int i = 0; i< this.sonneteLen; i++){
+			sonnet[i] = writeSonneteString();
 		}
 
-        return null;
+        return sonnet;
     }
 
 	public String writeSonneteString(){
@@ -43,8 +43,15 @@ public class DANI extends PApplet {
 			sonnetRow += currentWord.getWord() + " ";
 			i++;
 		}
-		System.out.println(sonnetRow);
+		//System.out.println(sonnetRow);
 		return sonnetRow;
+	}
+
+	public void printSonneteInConsole(){
+		System.out.println("\n\n\n----HERE IS OUR SONNET\n\n\n");
+		for(int i = 0; i< this.sonneteLen; i++){
+			System.out.println(sonnet[i]);
+		}
 	}
 
 	private int getRandomVal(int min, int max){
@@ -55,7 +62,8 @@ public class DANI extends PApplet {
 		colorMode(HSB);
 		loadFile();
 		printModel();
-		writeSonnet();
+		this.sonnet = writeSonnet();
+		printSonneteInConsole();
 	}
 
 	public void printModel(){
